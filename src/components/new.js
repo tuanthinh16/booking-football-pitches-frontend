@@ -12,7 +12,7 @@ export const New =()=>{
                         <div className="content"> {row.toppic.substring(0,23)}...</div>
                     ))}
                 </div>
-                <button id="button-view">View More</button>
+                <button id="button-view">Xem Thêm</button>
             </div>
         </Wrapper>
     );

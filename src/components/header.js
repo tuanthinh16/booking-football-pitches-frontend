@@ -3,12 +3,13 @@ import styled from "@emotion/styled";
 import Avatar from '@mui/material/Avatar';
 import Stack from '@mui/material/Stack';
 import { deepOrange, deepPurple } from '@mui/material/colors';
-import { Login } from "../templates/login";
+import { Login } from "../account/login";
 import Dialog from "@mui/material/Dialog";
-
+import { useNavigate  } from 'react-router-dom';
 
 const img = ['https://i.pinimg.com/564x/5c/31/0e/5c310e49115b10f176a0499ee21079cf.jpg','https://i.pinimg.com/564x/38/4f/de/384fde854a724f3b8a8783431a0f3b34.jpg']
 export const Header=()=>{
+    const nav = useNavigate ();
     const onShow = (div)=>{
         var x = document.getElementById(div);
         if (x.style.display === "none") {
@@ -18,6 +19,8 @@ export const Header=()=>{
           }
     }
     let token = localStorage.getItem('token');
+    let usr = localStorage.getItem('usr');
+    console.log(usr)
     const onLoginForm =()=>{
 
     }
@@ -30,6 +33,7 @@ export const Header=()=>{
     const handleClose = () => {
       setOpen(false);
     };
+
     return(
         <Wrapper>
             <div className="logo">
@@ -87,17 +91,17 @@ export const Header=()=>{
             </div>
             <div className="left-content">
             <div className="account">
-                <Avatar sx={{ bgcolor: deepPurple[500] }}>{token.substring(0,2).toUpperCase()}</Avatar>
+                <Avatar sx={{ bgcolor: deepPurple[500] }}>{usr?.substring(0,2).toUpperCase()}</Avatar>
             </div>
             
             {
                 token?(
                 <div className="login">
-                    <button className="login-button" disabled>Hi! {token}</button>
+                    <button className="login-button" onClick={()=> window.open("/profile/"+usr)}>Hi! {usr}</button>
                 </div>)
             :(
                 <div className="login">
-                    <button className="login-button" onClick={handleClickOpen}>LOGIN</button>
+                    <button className="login-button" onClick={handleClickOpen}>Đăng Nhập</button>
                 </div>
             )
             }
@@ -108,7 +112,12 @@ export const Header=()=>{
                     <a href="#"> Về Chúng Tôi</a>
                     <a href="#"> Liên Hệ</a>
                     <a href="#"> Đóng Góp Ý Kiến</a>
-                    <a href="#"> Đăng Xuất</a>
+                    {token?(
+                        <a href="/logout"> Đăng Xuất</a>
+                    ):(
+                        ''
+                    )}
+                    
                 </div>
             </div>
             </div>
@@ -204,13 +213,13 @@ export const Wrapper = styled.div`
         .menu-contents{
             display: none;
             position: absolute;
-            background-color: #f9f9f9;
+            background-color: rgb(49, 49, 49);
             min-width: 160px;
             box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
             z-index: 1;
             a{
                 float: none;
-                color: black;
+                color: white;
                 padding: 12px 16px;
                 text-decoration: none;
                 display: block;
